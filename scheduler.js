@@ -7,7 +7,7 @@ const schedule = [
   {
     name: "checkDownloads",
     path: path.join(appDir + "/jobs", "checkDownloads.js"),
-    cron: "*/1 * * * *",
+    cron: "*/5 * * * *",
   },
 ];
 
