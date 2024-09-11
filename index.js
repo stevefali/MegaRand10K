@@ -1,3 +1,7 @@
-const shell = require("shelljs");
+// const shell = require("shelljs");
 
-shell.exec("npx playwright test");
+// shell.exec("npx playwright test");
+
+const scheduler = require("./scheduler");
+
+scheduler.startBree();
