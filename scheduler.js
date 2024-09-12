@@ -20,8 +20,9 @@ const bree = new Bree({
 });
 
 const startBree = async () => {
-  await bree.start();
   console.log("Bree starting");
+  await bree.start();
+  console.log("Bree running");
 };
 
 module.exports = {
