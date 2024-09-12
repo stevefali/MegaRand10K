@@ -1,5 +1,5 @@
 # MegaRand10K
 
-## Mega Randomizer is approaching 10,000 downloads on CurseForge!
+## Mega Randomizer has passed 10,000 downloads on CurseForge!
 
-This program will email me when that happens.
+This program was built to notify me when it reaches that point.
