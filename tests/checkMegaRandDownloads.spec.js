@@ -19,9 +19,9 @@ test("findDownloads", async ({ page }) => {
 
   const downloadsQuantity = await downloads.innerText();
 
-  console.log("> 9k: ", Number(getDownloadsAsNumber(downloadsQuantity)) > 9000);
-
   if (Number(getDownloadsAsNumber(downloadsQuantity)) >= 10000) {
+    // @ts-ignore
+    notificationApi.init(clientId, clientSecret);
     notificationApi.send({
       notificationId: "10k_downloads",
       user: {
