@@ -28,7 +28,6 @@ async function checkDownloadsWithPlaywright() {
   const downloadsInterval = parameters.interval;
 
   if (Number(getDownloadsAsNumber(downloadsQuantity)) >= threshold) {
-    // @ts-ignore
     notificationApi.init(clientId, clientSecret);
     notificationApi.send({
       notificationId: "10k_downloads",
@@ -39,11 +38,11 @@ async function checkDownloadsWithPlaywright() {
     });
     console.log("YAAAAAAAYYYYY!!!!!!");
 
-    const nextThreshold = threshold + downloadsInterval;
-    fs.writeFileSync("./parameters.json", {
-      threshold: nextThreshold,
+    const nextParameters = JSON.stringify({
+      threshold: threshold + downloadsInterval,
       interval: downloadsInterval,
     });
+    fs.writeFileSync("./parameters.json", nextParameters);
   }
 
   await context.close();
