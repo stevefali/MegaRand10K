@@ -1,6 +1,7 @@
 const { chromium } = require("playwright");
 
 const notificationApi = require("notificationapi-node-server-sdk").default;
+const fs = require("fs");
 
 require("dotenv").config();
 const clientId = process.env.CLIENT_ID;
@@ -21,7 +22,12 @@ async function checkDownloadsWithPlaywright() {
 
   const downloadsQuantity = await downloads.innerText();
 
-  if (Number(getDownloadsAsNumber(downloadsQuantity)) >= 10000) {
+  const parameters = JSON.parse(fs.readFileSync("./parameters.json", "utf-8"));
+
+  const threshold = parameters.threshold;
+  const downloadsInterval = parameters.interval;
+
+  if (Number(getDownloadsAsNumber(downloadsQuantity)) >= threshold) {
     // @ts-ignore
     notificationApi.init(clientId, clientSecret);
     notificationApi.send({
@@ -32,6 +38,12 @@ async function checkDownloadsWithPlaywright() {
       },
     });
     console.log("YAAAAAAAYYYYY!!!!!!");
+
+    const nextThreshold = threshold + downloadsInterval;
+    fs.writeFileSync("./parameters.json", {
+      threshold: nextThreshold,
+      interval: downloadsInterval,
+    });
   }
 
   await context.close();
