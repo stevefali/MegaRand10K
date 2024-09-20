@@ -29,11 +29,15 @@ async function checkDownloadsWithPlaywright() {
 
   if (Number(getDownloadsAsNumber(downloadsQuantity)) >= threshold) {
     notificationApi.init(clientId, clientSecret);
-    notificationApi.send({
+    await notificationApi.send({
       notificationId: "10k_downloads",
       user: {
         id: "stevefaliszewski@gmail.com",
         email: "stevefaliszewski@gmail.com",
+      },
+      mergeTags: {
+        threshold: threshold,
+        downloads: getDownloadsAsNumber(downloadsQuantity),
       },
     });
     console.log("YAAAAAAAYYYYY!!!!!!");
