@@ -1,5 +1,6 @@
 # MegaRand10K
 
-## Mega Randomizer has passed 10,000 downloads on CurseForge!
+## I built this program to notify me when Mega Randomizer reached 10,000 downloads on CurseForge. I have since updated it to notify me whenever it hits a milestone.
 
-This program was built to notify me when it reaches that point.
+Those milestones are currently set for every hundred downloads.
+
