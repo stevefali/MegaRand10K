@@ -14,15 +14,15 @@
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.4",
     "notificationapi-node-server-sdk": "^2.2.1",
-    "playwright": "^1.47.1",
-    "shelljs": "^0.8.5"
+    "playwright": "^1.47.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.0",
     "@types/node": "^22.5.4"
   },
-
   "nodemonConfig": {
-    "ignore": ["parameters.json"]
+    "ignore": [
+      "parameters.json"
+    ]
   }
 }
