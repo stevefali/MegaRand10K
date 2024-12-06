@@ -1,4 +1,5 @@
 const { chromium } = require("playwright");
+const { execSync } = require("child_process");
 
 const notificationApi = require("notificationapi-node-server-sdk").default;
 const fs = require("fs");
@@ -47,6 +48,12 @@ async function checkDownloadsWithPlaywright() {
       interval: downloadsInterval,
     });
     fs.writeFileSync("./parameters.json", nextParameters);
+
+    const message = `Update parameters.json, setting new threshold to ${
+      threshold + downloadsInterval
+    }.`;
+
+    gitCommitAndPush(message);
   }
 
   await context.close();
@@ -65,4 +72,10 @@ function getDownloadsAsNumber(downloadsString) {
     }
   }
   return asNum;
+}
+
+function gitCommitAndPush(message) {
+  execSync("git add parameters.json");
+  execSync(`git commit -m "${message}"`);
+  execSync("git push");
 }
