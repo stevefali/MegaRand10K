@@ -6,3 +6,5 @@ Since then, I have adapted the program to send me an email whenever the download
 
 Another reason I made this project is that I have been learning to use [Playwright](https://playwright.dev) for testing web applications. To be fair, this application is really using it for more of scraping-type purpose, but it was a fun use case that I thought of while learning Playwright. It has also been a great project for refreshing my memory on using the [Bree](https://www.npmjs.com/package/bree) library for scheduling tasks, and the [Notification Api](https://www.notificationapi.com) to send email notifications.
 
+**Update Dec. 5, 2024:** The `parameters.json` file has been removed from `.gitignore`. Whenever that file updates (from reaching a new downloads threshold), it will be updated on GitHub as well, since I added functionality to do that programmatically.
+
