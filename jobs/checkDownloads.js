@@ -1,5 +1,5 @@
-const { chromium } = require("playwright");
 const { execSync } = require("child_process");
+const axios = require("axios");
 
 const notificationApi = require("notificationapi-node-server-sdk").default;
 const fs = require("fs");
@@ -7,28 +7,20 @@ const fs = require("fs");
 require("dotenv").config();
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
+const curseForgeKey = process.env.CURSEFORGE_API_KEY;
 
 console.log("Checking..");
 
-async function checkDownloadsWithPlaywright() {
-  const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext();
-  const page = await context.newPage();
-
-  await page.goto(
-    "https://www.curseforge.com/minecraft/mc-mods/mega-randomizer"
-  );
-
-  const downloads = page.locator(".detail-downloads");
-
-  const downloadsQuantity = await downloads.innerText();
-
+async function checkDownloadsWithApi() {
   const parameters = JSON.parse(fs.readFileSync("./parameters.json", "utf-8"));
 
   const threshold = parameters.threshold;
   const downloadsInterval = parameters.interval;
 
-  if (Number(getDownloadsAsNumber(downloadsQuantity)) >= threshold) {
+  const curseForgeResponse = await getCurseForgeResponse();
+  const downloadCount = curseForgeResponse.downloadCount;
+
+  if (downloadCount >= threshold) {
     notificationApi.init(clientId, clientSecret);
     await notificationApi.send({
       notificationId: "10k_downloads",
@@ -55,23 +47,22 @@ async function checkDownloadsWithPlaywright() {
 
     gitCommitAndPush(message);
   }
-
-  await context.close();
-  await browser.close();
 }
 
 (async () => {
-  await checkDownloadsWithPlaywright();
+  await checkDownloadsWithApi();
 })();
 
-function getDownloadsAsNumber(downloadsString) {
-  let asNum = "";
-  for (let i = 0; i < downloadsString.length; i++) {
-    if (!isNaN(downloadsString[i])) {
-      asNum += downloadsString[i];
+async function getCurseForgeResponse() {
+  const response = await axios.get(
+    "https://api.curseforge.com/v1/mods/906419",
+    {
+      headers: {
+        "x-api-key": curseForgeKey,
+      },
     }
-  }
-  return asNum;
+  );
+  return response.data.data;
 }
 
 function gitCommitAndPush(message) {
