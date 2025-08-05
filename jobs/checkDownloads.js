@@ -30,7 +30,7 @@ async function checkDownloadsWithApi() {
       },
       mergeTags: {
         threshold: threshold,
-        downloads: getDownloadsAsNumber(downloadsQuantity),
+        downloads: downloadCount,
       },
     });
     console.log("YAAAAAAAYYYYY!!!!!!");
