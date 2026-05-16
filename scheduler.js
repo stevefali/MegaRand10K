@@ -9,11 +9,11 @@ const schedule = [
     path: path.join(appDir + "/jobs", "checkDownloads.js"),
     cron: "0 * * * *",
   },
-  {
-    name: "checkComments",
-    path: path.join(appDir + "/jobs", "checkComments.js"),
-    cron: "0 * * * *",
-  },
+  // {
+  //   name: "checkComments",
+  //   path: path.join(appDir + "/jobs", "checkComments.js"),
+  //   cron: "0 * * * *",
+  // },
 ];
 
 const bree = new Bree({
