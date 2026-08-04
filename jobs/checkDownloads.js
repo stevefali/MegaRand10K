@@ -47,6 +47,7 @@ async function checkDownloadsWithApi() {
 
     gitCommitAndPush(message);
   }
+  console.log(`Downloads: ${downloadCount} Time: ${getDateString()}`);
 }
 
 (async () => {
@@ -60,7 +61,7 @@ async function getCurseForgeResponse() {
       headers: {
         "x-api-key": curseForgeKey,
       },
-    }
+    },
   );
   return response.data.data;
 }
@@ -69,4 +70,18 @@ function gitCommitAndPush(message) {
   execSync("git add parameters.json");
   execSync(`git commit -m "${message}"`);
   execSync("git push");
+}
+
+function getDateString() {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "short",
+  };
+
+  const now = new Date();
+  return now.toLocaleString("en-us", options);
 }
